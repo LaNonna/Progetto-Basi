@@ -1,0 +1,52 @@
+la catena di farmacie escobar necessita di un db per gestire i dati provenienti dalle varie sedi.
+
+ha quindi bisogno di monitorare:
+1) impiegati 
+2) prodotti
+3) contabilita
+4)sedi
+
+per gestire gi impiegati e' neccessario tenere conto di vari fattori, tra cui:
+-nome
+-cognome
+-codice fiscale
+-data di nascita
+-sede di lavoro
+-data di inizio e di fine collaborazione
+-rango
+-sesso
+-stipendio
+
+per gestire i prodotti e' necesario ricordare:
+-tipologia prodotto
+-fornitore
+-quantita' posseduta in base alla sede
+-data di scadenza se presente
+-tipo di ricetta se necessaria
+-identificativo prodotto
+-principio attivo se presente
+-prezzo di vendita
+-prezzo di acquisto
+
+per tenere efficientemente traccia della contabilita' serviranno due categorie, gli acquisti e le vendite
+  
+  Vendite:
+  -n transazione(o scontrino)
+  -id prodotto venduto
+  -data transazione
+  -quantita' venduta
+  -n ricetta se necessaria
+  
+  Acquisti:
+  -fornitore
+  -prodotto
+  -quantita' acquistata
+  -data transazione
+  -n transazione
+
+per le sedi:
+-indirizzo comprensivo di tutto
+-responsabile
+
+meh->(conviene probabilmente dividere i prodotti in farmaci, che hanno un principio attivo e necessitano di ricetta, e prodotti da parafarmacia, che possono avere comunque un 
+principio attivo e una data di scadenza)
