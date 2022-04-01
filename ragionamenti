@@ -50,3 +50,13 @@ per le sedi:
 
 meh->(conviene probabilmente dividere i prodotti in farmaci, che hanno un principio attivo e necessitano di ricetta, e prodotti da parafarmacia, che possono avere comunque un 
 principio attivo e una data di scadenza)
+
+
+
+
+Aggiungere all'E-R:
+-la tabella ricette, con un identificatore per il tipo
+-tutti gli attributi
+-creare l'attributo indirizzo
+-aggiungere (1,N) etc
+-RAGIONARE SU ALTRO 
