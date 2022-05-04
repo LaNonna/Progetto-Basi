@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-05-04T16:55:10.983Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36" etag="59iYew-m9FZCmUU-KTUh" version="17.5.0" type="github">
+<mxfile host="app.diagrams.net" modified="2022-05-04T16:55:35.036Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36" etag="fTrAP_bAkzfk0tUklMkK" version="17.5.0" type="github">
   <diagram id="g37PVrqC7UkkJd-V3b6W" name="Page-1">
     <mxGraphModel dx="1422" dy="1802" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -529,7 +529,7 @@
             <mxPoint x="2630" y="872.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="MBOUWFR5yHpP2ibVQKA5-37" value="&lt;div&gt;composizione&amp;nbsp;&amp;nbsp;&amp;nbsp; ordine&lt;/div&gt;" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+        <mxCell id="MBOUWFR5yHpP2ibVQKA5-37" value="&lt;div&gt;composizione&amp;nbsp;&amp;nbsp;&amp;nbsp; fornitura&lt;/div&gt;" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="2320" y="840" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="MBOUWFR5yHpP2ibVQKA5-45" value="quantita&#39;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
