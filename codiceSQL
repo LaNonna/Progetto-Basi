@@ -113,7 +113,6 @@ create table Prodotto(
 	nome 			varchar(16) 		not null,
 	produttore 		varchar(20) 		not null 					default 'Laboratorio Escobar',
 	prezzo_unitario 	numeric(5,2) 		not null,
-	data_scadenza		date			,
 
 	primary key(codice_prodotto)
 );
@@ -131,7 +130,7 @@ create table Farmaco(
 create table Ricevuta(
 	n_ricevuta 			serial 	primary key,
 	timestamp_r 			timestamp 		not null 					default current_timestamp,
-	importo			numeric(9,2)		not null,
+	importo				numeric(9,2)		not null,
 	sede				int			not null,
 	farmacista 			char(16),
 	
@@ -144,7 +143,6 @@ create table TransazioneUscente(
 	timestamp_t 		timestamp 		not null 					default current_timestamp,
 	importo 		numeric(9,2) 		not null 					default 0,
 	
-	d_autorizzante		character(16)		not null,
 	dipendente		character(16)		not null,
 
 	foreign key(d_autorizzante) references Impiegato(CF_impiegato)	on update cascade on delete restrict,
@@ -153,18 +151,27 @@ create table TransazioneUscente(
 
 create table Ricetta(
 	n_ricetta 		char(16)		primary key,
-	tipo 			varchar(10) 	/*check() 	*/					default 'mah',
-	data_emissione 	date 									default null,
+	tipo 			varchar(10) 	check(tipo='rossa' or tipo='elettronica' or tipo='a_ricalco' or tipo='limitativa')	default 'rossa',
+	data_emissione 		date 			default null,
 	CF_medico 		char(16)		not null,
-	CF_paziente 		char(16) 		not null
+	CF_paziente 		char(16) 		not null,
+	ripetibilita		bool			default true,
+	
+	ricevuta		int			not null,
+	
+	foreign key(ricevuta) references Ricevuta(n_ricevuta)
 
 );
 
 create table Lotto(
 	n_lotto 		char(16)	primary key,
-	n_pezzi		smallint	not null 	default 1,
+	n_pezzi			smallint	not null 	default 1,
+	data_scadenza		date		default null,
 	
-	fornitore		char(11)	
+	fornitore		char(11)	not null,
+	
+	foreign key(fornitore) references Fornitore(p_iva)
+	
 
 );
 
@@ -186,7 +193,7 @@ create table OperazioneSuMagazzino(
 	lotto 			char(16)			not null,
 	magazzino 		int,
 	data_op 		date 				not null 				default current_date, 
-	tipo			varchar(7)			not null default'carico',
+	tipo			varchar(7)	check(tipo='carico' or tipo='scarico')		not null 				default'carico',
 	
 	primary key(magazziniere,lotto,magazzino),
 	
@@ -196,11 +203,11 @@ create table OperazioneSuMagazzino(
 
 );
 
-/*********************************************************************************************/
+/************************************************************************************************/
 
 /*					RELATIONSHIPS						*/
 
-/*********************************************************************************************/
+/************************************************************************************************/
 
 /*Magazzino <-> Prodotto*/
 create table Contenimento(
@@ -216,22 +223,6 @@ create table Contenimento(
 );
 
 
-/*Farmaco <-> Ricetta*/
-create  table Prescrizione(
-	farmaco 		varchar(16),
-	ricetta 		char(16),
-	quantita 		numeric(2)  	not null 		default 1,
-	
-	primary key(farmaco,ricetta),
-	
-	foreign key(farmaco) references Farmaco(codice_prodotto)			on update cascade on delete cascade,
-	foreign key(ricetta) references Ricetta(n_ricetta)				on update cascade on delete cascade
-
-);
-
-
-
-
 /*Ricevuta <-> Prodotto*/
 create table ComposizioneRicevuta(
 	prodotto 		varchar(16),
@@ -241,7 +232,7 @@ create table ComposizioneRicevuta(
 	primary key(prodotto,ricevuta),
 	
 	foreign key(prodotto) references Prodotto(codice_prodotto)			on update cascade on delete restrict,   /*mantenimento storico ricevute*/
-	foreign key(ricevuta) references Ricevuta(n_ricevuta)			on update cascade on delete restrict
+	foreign key(ricevuta) references Ricevuta(n_ricevuta)				on update cascade on delete restrict
 
 );
 
@@ -312,7 +303,7 @@ insert into Magazzino(id_magazzino) values
 (4),		/*Bari*/
 (5);		/*Milano*/
 
-insert into Prodotto(codice_prodotto,nome,produttore,prezzo_unitario,data_scadenza) values	/*probabilmente va raddoppiata*/
+insert into Prodotto(codice_prodotto,nome,produttore,prezzo_unitario) values	/*probabilmente va raddoppiata*/
 ('0000000000','aspirina','bayern',9.9,'2022-10-10'),
 ('0111111111','moment','big_pharma','11','2022-06-23'),
 ('2222222222','stampella','stampellers',50,null),
@@ -347,7 +338,7 @@ insert into Fornitore(p_iva,c_c,pec,citta,via,civico,CAP,stato,telefono) values
 ('95656589514','IT9123456781234567823456766','info@pecpharmacbd.it','Padova','Via Guizza Conselvana','38a','35020','IT','3409428400'),
 ('68965468436','UK9869790869769768976877677','Johnson&J@pec.com','Pomezia','Jonny','7j','99999','IT','+390699748520');
 
-insert into TransazioneUscente(timestamp_t,importo,dipendente,direttore_autorizzante) values
+insert into TransazioneUscente(timestamp_t,importo,dipendente) values
 /*------STIPENDI_SEDE_DI_CAGLIARI----------------------------*/
 ('2022-01-03 11:25:06','5000','CDCRHT98E56F058Y','CDCRHT98E56F058Y'),
 ('2022-02-03 11:25:06','5000','CDCRHT98E56F058Y','CDCRHT98E56F058Y'),
